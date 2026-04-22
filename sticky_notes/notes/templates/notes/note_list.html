@@ -1,0 +1,29 @@
+{% extends 'notes/base.html' %}
+
+{% block content %}
+<div class="row">
+    {% for note in notes %}
+    <div class="col-md-4 mb-4">
+        <div class="card note-card h-100 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">{{ note.title }}</h5>
+                <p class="card-text">{{ note.content|truncatewords:20 }}</p>
+                <div class="mt-3">
+                    <a href="{% url 'note_update' pk=note.pk %}" 
+                       class="btn btn-outline-primary btn-sm">Edit</a>
+                    <a href="{% url 'note_delete' pk=note.pk %}" 
+                       class="btn btn-outline-danger btn-sm">Delete</a>
+                </div>
+            </div>
+            <div class="card-footer text-muted" style="font-size: 0.8rem;">
+                {{ note.created_at|date:"M d, Y" }}
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12 text-center">
+        <p class="lead">No notes yet. Create one!</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
