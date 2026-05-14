@@ -1,0 +1,17 @@
+{% extends 'notes/base.html' %}
+
+{% block content %}
+  <h2>{{ note.title }}</h2>
+  <p>{{ note.content }}</p>
+  
+  <a href="{% url 'note_update' note.id %}">Edit Note</a>
+  
+  <!-- Form to safely delete the note -->
+  <form action="{% url 'note_delete' note.id %}" method="POST" style="display:inline;">
+      {% csrf_token %}
+      <button type="submit">Delete Note</button>
+  </form>
+  
+  <br><br>
+  <a href="{% url 'note_list' %}">Back to List</a>
+{% endblock %}
